@@ -75,10 +75,32 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "grid_section_dPC7e9": {
+      "type": "grid-section",
+      "name": "Grid",
+      "settings": {
+        "builder": "sticky",
+        "grid": "grid-two",
+        "collections": [
+          "watches",
+          "tenpered-glasses",
+          "smart-watches",
+          "mouse",
+          "mobile-accessories",
+          "keyboards",
+          "iphone-transparent-covers",
+          "iphone-candy-covers",
+          "headphones",
+          "free-gifts",
+          "computer-acessorires"
+        ]
+      }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "grid_section_dPC7e9"
   ]
 }
