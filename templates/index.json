@@ -80,7 +80,7 @@
       "type": "grid-section",
       "name": "Grid",
       "settings": {
-        "builder": "sticky",
+        "builder": "builder-grid",
         "grid": "grid-two",
         "collections": [
           "watches",
