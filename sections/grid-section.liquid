@@ -32,7 +32,7 @@
         </div>
         <div class="builder__right-side">
             {% for i in (1..8) %}
-                <div class="palceholder__image">
+                <div class="placeholder__image">
                     <img src="https://cdn.shopify.com/s/files/1/0761/0738/3039/files/placeholder.avif?v=1775492062" width height alt="Image" laoding="lazy">
                     <div class="close__icn">x</div>
                 </div>
@@ -124,21 +124,21 @@
         grid-template-columns: repeat(2,1fr);
         gap: var(--gap);
     }
-    .palceholder__image{
+    .placeholder__image{
         min-width: 120px;
         display: flex;
         position: relative;
     }
-    .palceholder__image img{
+    .placeholder__image img{
         width: 100%;
         height: 100%;
         object-fit: cover;
         aspect-ratio: 1/1;
     }
-     .palceholder__image .close__icn{
+     .placeholder__image .close__icn{
         display: none;
     }
-    .palceholder__image img.active + .close__icn{
+    .placeholder__image img.active + .close__icn{
         position: absolute;
         top:0px;
         right:5px;
