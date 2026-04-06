@@ -75,10 +75,19 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "grid_section_AmWQiK": {
+      "type": "grid-section",
+      "name": "Grid",
+      "settings": {
+        "builder": "sticky",
+        "grid": "grid-two"
+      }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "grid_section_AmWQiK"
   ]
 }
