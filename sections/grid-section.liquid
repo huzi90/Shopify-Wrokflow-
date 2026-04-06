@@ -1,7 +1,60 @@
+<div class="builder {% if builder == "sticky" %}builder-sticky{% else %}builder-grid{% endif %} ">
+    {% if builder == "builder-grid" %}
+    <div class="custom-grid 
+            {% if grid == "grid-two" %}
+            grid-two 
+            {% elsif grid == "grid-three" %}
+            grid-three 
+            {% elsif grid == "grid-four" %}
+            grid-four
+    {% endif %}">
+        <div class="inner-products"></div>
+    </div>
+    {%  elsif  %}
+         <div class="custom-sticky">
+        <div class="inner-products"></div>
+    </div>
+    {% endif %}
+</div>
 {%  schema %}
 {
     "name":"Grid",
-    "settings": [],
+    "settings": [
+        {
+            "type": "select",
+            "id": "builder",
+            "label": "Select the builder layout.",
+            "options": [
+                {
+                    "value": "sticky",
+                    "label":"Sticky"
+                },
+                {
+                    "value": "grid",
+                    "label":"Grid"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id":"grid",
+            "label": "Select the media layout.",
+            "options": [
+                {
+                    "value": "grid-two",
+                    "label":"Two"
+                },
+                {
+                    "value": "grid-three",
+                    "label":"Three"
+                },
+                {
+                    "value": "grid-four",
+                    "label":"Four"
+                }
+            ]
+        }
+    ],
     "presets": [
         {
             "name": "Grid"
