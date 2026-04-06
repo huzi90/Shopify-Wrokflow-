@@ -1,21 +1,214 @@
 <div class="builder {% if section.settings.builder == "sticky" %}builder-sticky{% else %}builder-grid{% endif %} ">
+    <div class="page-width">
     {% if section.settings.builder == "builder-grid" %}
-    <div class="custom-grid 
-            {% if section.settings.grid == "grid-two" %}
-            grid-two 
-            {% elsif section.settings.grid == "grid-three" %}
-            grid-three 
-            {% elsif section.settings.grid == "grid-four" %}
-            grid-four
-    {% endif %}">
-    <div class="inner-products"></div>
+
+    <div class="builder__wrpper">
+            <div class="builder__left-side custom-grid 
+                    {% if section.settings.grid == "grid-two" %}
+                    grid-two 
+                    {% elsif section.settings.grid == "grid-three" %}
+                    grid-three 
+            {% endif %}">
+            {% for collection in section.settings.collections  %}
+                {% for product in collection.products limit:2 %}
+                    {% if product.available %}
+                    <div class="inner-products">
+                        <div class="product__image">
+                            {{ product.featured_image |  image_url: width: 600 |  image_tag: alt:product.title,loading:"lazy" }}
+                        </div>
+                        <div class="product__title">
+                            <h2>{{ product.title }}</h2>
+                        </div>
+                        <div class="product__price">
+                            {{ product.price |  money }}
+                        </div>
+                        <div class="product__atc">
+                            <button type="button" name="bunde-atc" class="product__bundle-atc" data-variant-id="{{ product.variants.first.id }}" data-product-image="{{ product.featured_image |  image_url: width: 200 }}" >Add to bundle</button>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="builder__right-side">
+            {% for i in (1..8) %}
+                <div class="palceholder__image">
+                    <img src="https://cdn.shopify.com/s/files/1/0761/0738/3039/files/placeholder.avif?v=1775492062" width height alt="Image" laoding="lazy">
+                    <div class="close__icn">x</div>
+                </div>
+                {% endfor %}
+        </div>
     </div>
+
     {%  else  %}
-         <div class="custom-sticky">
-        <div class="inner-products"></div>
+<div class="custom-sticky">
+         <div class="custom-grid 
+                    {% if section.settings.grid == "grid-two" %}
+                    grid-two 
+                    {% elsif section.settings.grid == "grid-three" %}
+                    grid-three 
+            {% endif %}">
+          {% for collection in section.settings.collections  %}
+        {% for product in collection.products limit:2 %}
+            {% if product.available %}
+            <div class="inner-products">
+                <div class="product__image">
+                    {{ product.featured_image |  image_url: width: 300 |  image_tag: alt:product.title,loading:"lazy" }}
+                </div>
+                <div class="product__title">
+                    <h2>{{ product.title }}</h2>
+                </div>
+                <div class="product__price">
+                    {{ product.price |  money }}
+                </div>
+                 <div class="product__atc">
+                    <button type="button" name="bunde-atc" class="product__bundle-atc" data-variant-id="{{ product.variants.first.id }}" data-product-image="{{ product.featured_image |  image_url: width: 200 }}" >Add to bundle</button>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+        
     </div>
+<div class="bottom__palceholder">
+    <div class="placeholders">
+            {% for i in (1..8) %}
+                <div class="placeholder__image">
+                    <img src="https://cdn.shopify.com/s/files/1/0761/0738/3039/files/placeholder.avif?v=1775492062" width height alt="Image" laoding="lazy">
+                    <div class="close__icn">x</div>
+                </div>
+                {% endfor %}
+        </div>
+        </div>
+        </div>
+
     {% endif %}
 </div>
+</div>
+<style>
+    :root{
+        --gap:20px;
+    }
+    .builder__wrpper{
+        display:flex;
+        align-items: flex-start; 
+        gap:var(--gap);
+        position: relative;
+    }
+    .custom-grid{
+        display:grid;
+        gap:var(--gap);
+    }
+    .grid-two{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .grid-three{
+        grid-template-columns: repeat(3,1fr);
+    }
+    .builder-grid .inner-products{
+        min-width: calc(100% - var(--gap));
+        width: 100%;
+    }
+    .product__image{
+        display: flex;
+    }
+    .product__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 1/1;
+    }
+    .builder__right-side{
+        position: sticky;
+        top: 20px;
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(2,1fr);
+        gap: var(--gap);
+    }
+    .palceholder__image{
+        min-width: 120px;
+        display: flex;
+        position: relative;
+    }
+    .palceholder__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 1/1;
+    }
+     .palceholder__image .close__icn{
+        display: none;
+    }
+    .palceholder__image img.active + .close__icn{
+        position: absolute;
+        top:0px;
+        right:5px;
+        cursor: pointer;
+    }
+    .product__bundle-atc{
+        cursor: pointer;
+        background: none;
+        border: none;
+        background-color: #111;
+        color: #eee;
+        width: 100%;
+        padding:10px 10px;
+    }
+    .product__bundle-atc[disabled]{
+        opacity:0.3;
+        cursor:not-allowed;
+    }
+    .custom-sticky {
+        position: relative;
+    }
+    .bottom__palceholder{
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        gap: var(--gap);
+        position: sticky;
+        bottom:0;
+        width: 100%;
+    }
+
+
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const mainDev = document.querySelector(".builder");
+  if (!mainDev) return;
+
+  const PLACEHOLDER_URL = "https://cdn.shopify.com/s/files/1/0761/0738/3039/files/placeholder.avif?v=1775492062";
+
+  const getFreePlaceholder = () =>
+    [...mainDev.querySelectorAll(".palceholder__image img")]
+      .find(img => img.src.includes("placeholder.avif"));
+
+  const resetSlot = (img, closeBtn, atc) => {
+    img.src = PLACEHOLDER_URL;
+    img.classList.remove("active");
+    closeBtn.style.display = "none";
+    atc.disabled = false;
+  };
+
+  mainDev.querySelectorAll(".product__bundle-atc").forEach(atc => {
+    atc.addEventListener("click", () => {
+      const img = getFreePlaceholder();
+      if (!img) return;
+
+      img.src = atc.dataset.productImage;
+      img.classList.add("active");
+
+      const closeBtn = img.nextElementSibling;
+      closeBtn.style.display = "block";
+      atc.disabled = true;
+
+      closeBtn.addEventListener("click", () => resetSlot(img, closeBtn, atc), { once: true });
+    });
+  });
+});
+</script>
 {%  schema %}
 {
     "name":"Grid",
@@ -39,6 +232,7 @@
             "type": "select",
             "id":"grid",
             "label": "Select the media layout.",
+            "default": "grid-two",
             "options": [
                 {
                     "value": "grid-two",
@@ -47,12 +241,13 @@
                 {
                     "value": "grid-three",
                     "label":"Three"
-                },
-                {
-                    "value": "grid-four",
-                    "label":"Four"
                 }
             ]
+        },
+        {
+            "type": "collection_list",
+            "id": "collections",
+            "label": "Select the collections"
         }
     ],
     "presets": [
