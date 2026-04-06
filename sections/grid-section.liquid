@@ -1,16 +1,16 @@
-<div class="builder {% if builder == "sticky" %}builder-sticky{% else %}builder-grid{% endif %} ">
-    {% if builder == "builder-grid" %}
+<div class="builder {% if section.settings.builder == "sticky" %}builder-sticky{% else %}builder-grid{% endif %} ">
+    {% if section.settings.builder == "builder-grid" %}
     <div class="custom-grid 
-            {% if grid == "grid-two" %}
+            {% if section.settings.grid == "grid-two" %}
             grid-two 
-            {% elsif grid == "grid-three" %}
+            {% elsif section.settings.grid == "grid-three" %}
             grid-three 
-            {% elsif grid == "grid-four" %}
+            {% elsif section.settings.grid == "grid-four" %}
             grid-four
     {% endif %}">
-        <div class="inner-products"></div>
+    <div class="inner-products"></div>
     </div>
-    {%  elsif  %}
+    {%  else  %}
          <div class="custom-sticky">
         <div class="inner-products"></div>
     </div>
@@ -30,7 +30,7 @@
                     "label":"Sticky"
                 },
                 {
-                    "value": "grid",
+                    "value": "builder-grid",
                     "label":"Grid"
                 }
             ]
