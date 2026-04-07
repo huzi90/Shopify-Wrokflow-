@@ -37,6 +37,9 @@
                     <div class="close__icn">x</div>
                 </div>
                 {% endfor %}
+                <div class="builder__atc">
+                    <button type="button" name="add" class="builder_atc">Add to cart</button>
+                </div>
         </div>
     </div>
 
@@ -86,6 +89,9 @@
 <style>
     :root{
         --gap:20px;
+    }
+    .builder{
+        padding:20px 0;
     }
     .builder__wrpper{
         display:flex;
@@ -175,6 +181,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const mainDev = document.querySelector(".builder");
+  let variants = [];
   if (!mainDev) return;
 
   const PLACEHOLDER_URL = "https://cdn.shopify.com/s/files/1/0761/0738/3039/files/placeholder.avif?v=1775492062";
@@ -184,6 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .find(img => img.src.includes("placeholder.avif"));
 
   const resetSlot = (img, closeBtn, atc) => {
+    const variantsId = atc.dataset.variantId;
+    variants = variants.filter(v => v !== variantsId);
     img.src = PLACEHOLDER_URL;
     img.classList.remove("active");
     closeBtn.style.display = "none";
@@ -202,8 +211,25 @@ document.addEventListener("DOMContentLoaded", () => {
       closeBtn.style.display = "block";
       atc.disabled = true;
 
+      variants.push(atc.dataset.variantId);
       closeBtn.addEventListener("click", () => resetSlot(img, closeBtn, atc), { once: true });
     });
+  });
+
+  mainDev.querySelector(".builder_atc").addEventListener("click",function(){
+        let items = variants.map(id => ({
+            id:Number(id),
+            quantity:1
+        }))
+        fetch("/cart/add.js",{
+            method:'POST',
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({ items })
+        }).then(res => res.json())
+        .then(data => {
+            console.log("Cart Items Added")
+        });
+    
   });
 });
 </script>
